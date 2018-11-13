@@ -40,7 +40,7 @@ def get_random_flickr_image(launches_images):
     return random_images
 
 
-def spacex(number_of_launches):
+def spacex(number_of_launches, path):
     spacex_api_url = 'https://api.spacexdata.com/v3/launches'
     all_launches = get_all_launches(spacex_api_url)
     complete_launches = find_all_complete_launches(all_launches)
@@ -48,13 +48,14 @@ def spacex(number_of_launches):
     launches_images = get_launch_image_url(last_complete_launches)
     random_images = get_random_flickr_image(launches_images)
     for url in random_images:
-        download_image(url)
+        download_image(url, path)
 
 
 @click.command()
-@click.option('--launches', default=5, help='Number of last spacex launches.')
-def cli(launches):
-    spacex(launches)
+@click.option('-l','--launches', default=5, help='Number of last spacex launches.')
+@click.option('-p','--path', default='images', help='Directory where images will store')
+def cli(launches, path):
+    spacex(launches, path)
 
 
 if __name__ == '__main__':

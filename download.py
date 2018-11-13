@@ -9,7 +9,7 @@ def make_dir(name):
 
 
 def download_image(url, path='images'):
-    make_dir(name='images')
+    make_dir(path)
     img_data = requests.get(url).content
     image_extension = url.split('.')[-1]
     image_name = f'image{randint(1,9999)}.{image_extension}'
